@@ -1,0 +1,29 @@
+---
+const { frontmatter } = Astro.props;
+import Layout from "../layouts/Layout.astro";
+
+const formatDate = (date) => {
+  const dateObj = new Date(date);
+
+  const year = dateObj.getFullYear();
+  const month = dateObj.getMonth() + 1; // getMonth() is zero-based
+  const day = dateObj.getDate();
+  const hours = dateObj.getHours();
+  const minutes = dateObj.getMinutes();
+  const seconds = dateObj.getSeconds();
+
+  const formattedDate = `${year}년 ${month}월 ${day}일`
+
+  return formattedDate;
+};
+---
+
+<Layout title={frontmatter.title}>
+  <h1>
+    {frontmatter.title}
+  </h1>
+  <h5>
+    {formatDate(frontmatter.dateCreated)}
+  </h5>
+  <slot />
+</Layout>

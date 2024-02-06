@@ -1,0 +1,29 @@
+---
+import Layout from "../layouts/Layout.astro";
+const allPosts = await Astro.glob("./posts/foodlife/**/*.mdx");
+
+import Card from "../components/Card.astro";
+---
+
+<Layout title="food life">
+  <h2>나의 식문화를 소개합니다</h2>
+  <div>
+    <div class="card-container">
+      {
+        allPosts
+          .slice(0, 6)
+          .map((post) => (
+            <Card
+              title={post.frontmatter.title}
+              body={post.frontmatter.body}
+              href={post.url}
+              image={post.thumbnail}
+              description={
+                post.frontmatter.description || post.frontmatter.body
+              }
+            />
+          ))
+      }
+    </div>
+  </div>
+</Layout>
